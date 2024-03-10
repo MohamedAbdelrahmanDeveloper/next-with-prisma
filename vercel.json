@@ -1,0 +1,7 @@
+{
+    "builds": [
+      { "src": "api/**/*.js", "use": "@vercel/node" },
+      { "src": "prisma", "use": "@prisma/cli" }
+    ],
+    "version": 2
+}
