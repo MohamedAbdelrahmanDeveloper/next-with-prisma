@@ -1,3 +1,26 @@
+start with prisma and posgresql
+```bash
+npx prisma init --datasource-provider postgresql
+```
+ 
+### install prisma client 
+```bash
+npm i @prisma/client
+```
+
+### after add model in prisma file 
+```bash
+npx prisma generate
+# on linux arch (manjaro)
+sudo npx prisma generate
+```
+
+### step 4  
+```bash
+npx prisma migrate dev --name init --create-only
+```
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
