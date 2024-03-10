@@ -19,7 +19,7 @@ sudo npx prisma generate
 ```bash
 npx prisma migrate dev --name init --create-only
 ```
-
+y
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
