@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import * as z from "zod";
 type TypeUserZodSchema = z.infer<typeof UserZodSchema>;
 
-export default function page() {
+export default function SignUp() {
   const router = useRouter();
   const [firstName, setFirstName] = useState<string>();
   const [lastName, setLastName] = useState<string>();

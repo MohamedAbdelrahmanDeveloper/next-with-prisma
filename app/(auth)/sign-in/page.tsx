@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import * as z from 'zod'
 type TypeLoginZodSchema = z.infer<typeof LoginZodSchema>
 
-export default function page() {
+export default function SignIn() {
     
     const router = useRouter()
     const [email, setEmail] = useState<string>()

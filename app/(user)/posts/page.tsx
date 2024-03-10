@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 
 
 
-export default function page() {
+export default function PostsOfUser() {
   const [posts, setPosts] = useState<PostType[]>()
   const [session, setSession] = useState<any>()
   const [refresh, setRefresh] = useState<boolean>(false)
