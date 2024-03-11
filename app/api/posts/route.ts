@@ -10,7 +10,7 @@ export async function POST(req:NextRequest) {
     }
     const {description} = await req.json() as {description: string}
     const newPost = await db.post.create({
-        data: {description,  userId: parseInt(session.user.id)},
+        data: {description,  userId: session.user.id},
         include: {
             user: true,
         }

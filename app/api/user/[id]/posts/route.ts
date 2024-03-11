@@ -12,7 +12,7 @@ export async function GET(req: NextRequest, { params }: PropsMethodParamsType) {
     orderBy: {
       createdAt: "desc",
     },
-    where: { userId: parseInt(params.id) },
+    where: { userId: params.id },
     include: {
       user: {
         select: {
