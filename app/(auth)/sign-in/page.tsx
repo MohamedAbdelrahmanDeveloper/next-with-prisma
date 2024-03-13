@@ -28,7 +28,6 @@ export default function SignIn() {
             if (response?.error) {
                 setServerError(response.error);
             }
-    
             if (response?.ok) {
                 setServerError(null)
                 router.push('/')

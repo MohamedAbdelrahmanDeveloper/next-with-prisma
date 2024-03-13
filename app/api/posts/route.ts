@@ -1,7 +1,29 @@
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { verifyJwt } from "@/lib/jwt";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+
+
+export async function GET(req: NextRequest) {
+    const accessToken = req.headers.get("authorization");
+    if (!accessToken || !verifyJwt(accessToken)) {
+        return NextResponse.json({error: "unauthorized"},{status: 401});
+    }
+    const posts = await db.post.findMany({
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    username: true
+                }
+            }
+        }
+    })
+
+    return NextResponse.json({posts},{status: 200})
+}
 
 export async function POST(req:NextRequest) {
     const session = await getServerSession(authOptions)

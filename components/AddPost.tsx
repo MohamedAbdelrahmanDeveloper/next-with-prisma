@@ -1,20 +1,22 @@
 'use client'
-import { axiosCustom } from '@/lib/axios'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 
-export default function AddPostPage({setRefresh}: {setRefresh: Dispatch<SetStateAction<boolean>>}) {
+export default function AddPostPage() {
     const [description, setDescription] = useState<string>()
+    const router = useRouter()
     // TODO : here
     const [errors, setErrors] = useState<null>();
     const [serverError, setServerError] = useState<null>();
     
     const AddPost = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await axiosCustom.post('api/posts', {
+        const res = await axios.post('api/posts', {
             description
         })
         if (res.status === 201) {
-            setRefresh(e=> !e)
+            router.refresh()
         }
     }
   return (

@@ -14,11 +14,25 @@ export async function GET(req: NextRequest, { params }: PropsMethodParamsType) {
       user: {
         select: {
           id: true,
-          firstName: true,
-          lastName: true,
+          name: true,
           username: true,
         },
       },
+      comments: {
+        select : {
+          id: true,
+          text: true,
+          createdAt: true,
+          updatedAt: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              username: true
+            }
+          }
+        }
+      }
     },
   });
   if (!post) {

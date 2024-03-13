@@ -2,8 +2,7 @@ import NextAuth from "next-auth"
 
 export interface TypeUserData {
   id: string,
-  firstName: string,
-  lastName: string,
+  name: string,
   username: string,
   email: string,
   createdAt: string,

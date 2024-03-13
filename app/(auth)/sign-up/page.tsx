@@ -1,6 +1,6 @@
 "use client";
-import { axiosCustom } from "@/lib/axios";
 import { ErrorZod, UserZodSchema } from "@/lib/zodSchema";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import * as z from "zod";
@@ -8,8 +8,7 @@ type TypeUserZodSchema = z.infer<typeof UserZodSchema>;
 
 export default function SignUp() {
   const router = useRouter();
-  const [firstName, setFirstName] = useState<string>();
-  const [lastName, setLastName] = useState<string>();
+  const [name, setName] = useState<string>();
   const [username, setUsername] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -19,12 +18,11 @@ export default function SignUp() {
     e.preventDefault();
       
     try {
-        UserZodSchema.parse({firstName, lastName, username, email, password})
+        UserZodSchema.parse({name, username, email, password})
         setErrors(null)
 
-        axiosCustom.post("/api/user", {
-            firstName,
-            lastName,
+        axios.post("/api/user", {
+            name,
             username,
             email,
             password,
@@ -48,17 +46,11 @@ export default function SignUp() {
       onSubmit={SginUp}
       className="max-w-5xl mx-auto py-10 flex flex-col gap-y-2 [&>input]:p-4 [&>input]:rounded-lg text-black"
     >
-      <div>{errors?.firstName}</div>
+      <div>{errors?.name}</div>
       <input
         type="text"
-        placeholder="Firstname"
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <div>{errors?.lastName}</div>
-      <input
-        type="text"
-        placeholder="Lastname"
-        onChange={(e) => setLastName(e.target.value)}
+        placeholder="name"
+        onChange={(e) => setName(e.target.value)}
       />
       <div>{errors?.username}</div>
       <input

@@ -17,8 +17,7 @@ export async function GET(req: NextRequest, { params }: PropsMethodParamsType) {
       user: {
         select: {
           id: true,
-          firstName: true,
-          lastName: true,
+          name: true,
           username: true,
         },
       },

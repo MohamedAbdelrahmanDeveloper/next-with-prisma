@@ -1,53 +1,28 @@
-'use client'
-import { moment_timeAge } from '@/lib/moment'
-import { PostType } from '@/types'
+import Post from '@/components/Post'
+import { authOptions } from '@/lib/auth'
+import { urlServer } from '@/lib/axios'
 import axios from 'axios'
-import { getSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { getServerSession } from 'next-auth'
 
-export default function PostID({params}: {params: {id: string}}) {
-    const router = useRouter()
-  const [post, setPost] = useState<PostType>()
-  const [session, setSession] = useState<any>()
-
-  useEffect(() => {
-    getSession().then(res => {  
-      setSession(res)
-    })
-  }, [])
-  
-  useEffect(() => {
-    if (session) {      
-      axios.get(`/api/posts/${params.id}`, {
+export default async function PostID({params}: {params: {id: string}}) {
+  const session = await getServerSession(authOptions)
+    try {      
+      const post = await axios.get(`${urlServer}/api/posts/${params.id}`, {
         headers: {
-          'Authorization': session.token
+          'Authorization': session?.token
         }
-      }).then(e =>{        
-        if (e.status === 200) {
-            setPost(e.data.post)
-        }
-        else {
-            router.push('/not-found')
-        }        
-    }).catch(error => {
-          router.push('/not-found')
       })
-    }
-  }, [session])    
-  return (
-    <div className='max-w-5xl mx-auto'>
-        <div className='text-6xl'>Post</div>
-        <div className='flex flex-col space-y-5'>
-          {
-            post && 
-              <div key={post.id} className='shadow rounded p-4 bg-white'>
-                <p className='text-lg'>{post.description}</p>
-                <time className='text-sm'>{`${new Date(post.createdAt)}`}</time>
-                <time className='text-sm text-red-600 block'>{`${moment_timeAge(post.createdAt)}`}</time>
-              </div>
-          }
+      return (
+        <div className='max-w-5xl mx-auto'>
+            <div className='text-6xl'>Posts</div>
+            <div className='flex flex-col space-y-5'>
+              {
+                post.data.post && <Post post={post.data.post}/>
+              }
+            </div>
         </div>
-    </div>
-  )
+      )
+  } catch (error) {    
+    return <div>Error</div>
+  }
 }

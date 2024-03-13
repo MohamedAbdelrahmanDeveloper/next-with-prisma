@@ -3,29 +3,10 @@ import { db } from "@/lib/db";
 import { hash } from "bcrypt";
 import { UserZodSchema } from "@/lib/zodSchema";
 
-
-export async function GET() {
-    try {
-        const users = await db.user.findMany({
-            select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                username: true,
-                email: true,
-            }
-        })
-        return NextResponse.json({users: users},{status: 200})
-        
-    } catch (error) {
-        return NextResponse.json({error: error},{status: 200})
-    }
-}
-
 export async function POST(req:NextRequest) {
     try {
         const body = await req.json()
-        const {firstName, lastName, username, email, password} = UserZodSchema.parse(body)
+        const {name, username, email, password} = UserZodSchema.parse(body)
         
         const isEmailExists = await db.user.findUnique({
             where: {email}
@@ -42,13 +23,11 @@ export async function POST(req:NextRequest) {
         const encryptPassword = await hash(password , 10)
 
         const newUser = await db.user.create({
-            data: {firstName, lastName, username, email, password: encryptPassword}
+            data: {name , username, email, password: encryptPassword}
         })
-    
-        const {password: newPassword, ...restUser} = newUser
-    
-        return NextResponse.json({user: restUser},{status: 201})
         
+        const {password: newPassword, ...restUser} = newUser
+        return NextResponse.json({user: restUser},{status: 201})
     } catch (error) {
         return NextResponse.json({error: error},{status: 500})
     }

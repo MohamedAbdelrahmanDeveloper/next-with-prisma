@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
         return {
           ...userWithoutPass,
           id: `${existingUser.id}`,
-          name: `${existingUser.firstName} ${existingUser.lastName}`,
+          name: existingUser.name,
           accessToken,
         };
       },
