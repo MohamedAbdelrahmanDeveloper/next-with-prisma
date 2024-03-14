@@ -4,6 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "./db";
 import { compare } from "bcrypt";
 import { signJwtAccessToken } from "./jwt";
+import axios from "axios";
+import { urlServer } from "./axios";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -26,31 +28,25 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Please enter an email and password");
         }
-        const existingUser = await db.user.findUnique({
-          where: {
+        try {
+          const res = await axios.post(`${urlServer}/api/auth/login`, {
             email: credentials?.email,
-          },
-        });
-        if (!existingUser) {
-          throw new Error("No user found");
-        }
-        const checkPassword = await compare(
-          credentials.password,
-          existingUser.password
-        );
-        if (!checkPassword) {
-          throw new Error("Incorrect password");
-        }
+            password: credentials?.password
+          })
+  
+          if (res.data.user) {
+            return res?.data?.user
+          }
 
-        const { password, ...userWithoutPass } = existingUser;
-
-        const accessToken = signJwtAccessToken(userWithoutPass);
-        return {
-          ...userWithoutPass,
-          id: `${existingUser.id}`,
-          name: existingUser.name,
-          accessToken,
-        };
+          throw new Error(res.data.message)
+        } catch (error) {
+          // @ts-ignore
+          if (error?.response) {
+            // @ts-ignore
+            throw new Error(`${error.response.data.message}`)
+          }
+          throw new Error(`${error}`)
+        }
       },
     }),
   ],

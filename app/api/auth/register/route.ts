@@ -29,6 +29,6 @@ export async function POST(req:NextRequest) {
         const {password: newPassword, ...restUser} = newUser
         return NextResponse.json({user: restUser},{status: 201})
     } catch (error) {
-        return NextResponse.json({error: error},{status: 500})
+        return NextResponse.json({user: null, message: error},{status: 500})
     }
 }
