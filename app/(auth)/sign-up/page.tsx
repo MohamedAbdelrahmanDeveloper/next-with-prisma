@@ -21,7 +21,7 @@ export default function SignUp() {
         UserZodSchema.parse({name, username, email, password})
         setErrors(null)
 
-        axios.post("/api/user", {
+        axios.post("/api/auth", {
             name,
             username,
             email,

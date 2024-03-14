@@ -1,6 +1,7 @@
 import AddPostPage from '@/components/AddPost'
 import Post from '@/components/Post'
 import { authOptions } from '@/lib/auth'
+import { urlServer } from '@/lib/axios'
 import { PostType } from '@/types'
 import axios from 'axios'
 import { getServerSession } from 'next-auth'
@@ -10,7 +11,7 @@ import { getServerSession } from 'next-auth'
 export default async function PostsOfUser() {
   const session = await getServerSession(authOptions)
     try {
-      const posts = await axios.get(`http://192.168.1.24:3000/api/user/${session?.user.id}/posts`, {
+      const posts = await axios.get(`${urlServer}/api/user/${session?.user.id}/posts`, {
         headers: {
           'Authorization': session?.token
         }

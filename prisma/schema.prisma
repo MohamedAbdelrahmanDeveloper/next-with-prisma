@@ -25,6 +25,7 @@ model User {
 
   posts    Post[]
   comments Comment[]
+  likes Like[]
 }
 
 model Post {
@@ -36,6 +37,7 @@ model Post {
   userId    String
   user      User       @relation(fields: [userId], references: [id])
   comments  Comment[]
+  likes Like[]
 }
 
 model Comment {
@@ -48,4 +50,15 @@ model Comment {
   user   User   @relation(fields: [userId], references: [id])
   postId String
   Post   Post   @relation(fields: [postId], references: [id])
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  postId String
+  Post   Post   @relation(fields: [postId], references: [id]) 
 }

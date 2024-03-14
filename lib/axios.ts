@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const urlServer = 'http://192.168.1.24:3000'
+export const urlServer = process.env.AXIOS_SERVER_URL
 
 export const axiosCustom = axios.create({
     url: 'http://localhost:3000'

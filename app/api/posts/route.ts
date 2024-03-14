@@ -1,41 +1,72 @@
-import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { verifyJwt } from "@/lib/jwt";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 
 export async function GET(req: NextRequest) {
     const accessToken = req.headers.get("authorization");
-    if (!accessToken || !verifyJwt(accessToken)) {
-        return NextResponse.json({error: "unauthorized"},{status: 401});
+    if (!accessToken) {
+        return NextResponse.json({message: "please enter token"},{status: 401});
     }
+    const decoded = verifyJwt(accessToken)
+    if (!decoded) {
+        return NextResponse.json({message: "unauthorized"},{status: 401});
+    }    
     const posts = await db.post.findMany({
         include: {
             user: {
                 select: {
                     id: true,
                     name: true,
-                    username: true
+                    username: true,
+                },
+            },
+            comments: {
+                select : {
+                id: true,
+                text: true,
+                createdAt: true,
+                updatedAt: true,
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        username: true
+                    }
+                }
+                }
+            },
+            likes: {
+                select:{
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        username: true
+                    }
+                }
                 }
             }
-        }
+        },
     })
-
     return NextResponse.json({posts},{status: 200})
 }
 
 export async function POST(req:NextRequest) {
-    const session = await getServerSession(authOptions)
-    if (!session?.user) {
-        return NextResponse.json({message: 'Please login'},{status: 500})
+    const accessToken = req.headers.get("authorization");
+    if (!accessToken) {
+        return NextResponse.json({message: "please enter token"},{status: 401});
+    }
+    const decoded = verifyJwt(accessToken)
+    if (!decoded) {
+        return NextResponse.json({message: "unauthorized"},{status: 401});
     }
     const {description} = await req.json() as {description: string}
-    const newPost = await db.post.create({
-        data: {description,  userId: session.user.id},
+    await db.post.create({
+        data: {description,  userId: decoded.id},
         include: {
             user: true,
         }
     })
-    return NextResponse.json({posts: newPost},{status: 201})
+    return NextResponse.json({post: 'seccess created'},{status: 201})
 }

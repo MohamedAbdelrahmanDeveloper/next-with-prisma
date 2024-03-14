@@ -12,6 +12,11 @@ export const LoginZodSchema = z.object({
     password: z.string().min(8, 'Password is requires , 8 charecters')
 })
 
+export const UserUpdateZodSchema = z.object({
+    name: z.string().min(1, 'Name is required'),
+    username : z.string().min(1, 'Username is required').max(15),
+})
+
 export const ErrorZod = ({error}:{error: unknown}) => {
     if (error) {
         if (error instanceof z.ZodError) {

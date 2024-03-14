@@ -11,8 +11,9 @@ export interface PostType extends DateAtType {
     id: string;
     description: string;
     user: UserForPostType
-    userId: number
+    userId: string
     comments: CommentType[]
+    likes: Like[]
 }
 
 export interface CommentType extends DateAtType {
@@ -32,4 +33,9 @@ export interface UserType extends DateAtType{
     name: string,
     username: string,
     email: string
+}
+
+export interface Like extends DateAtType{
+  id: string,
+  user: UserType
 }

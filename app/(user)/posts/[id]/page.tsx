@@ -1,4 +1,5 @@
 import Post from '@/components/Post'
+import PostDetails from '@/components/PostDetails'
 import { authOptions } from '@/lib/auth'
 import { urlServer } from '@/lib/axios'
 import axios from 'axios'
@@ -17,7 +18,7 @@ export default async function PostID({params}: {params: {id: string}}) {
             <div className='text-6xl'>Posts</div>
             <div className='flex flex-col space-y-5'>
               {
-                post.data.post && <Post post={post.data.post}/>
+                post.data.post && <PostDetails key={post.data.post.id + 'd'} post={post.data.post}/>
               }
             </div>
         </div>
