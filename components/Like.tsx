@@ -2,6 +2,7 @@
 
 import { PostType } from '@/types'
 import axios from 'axios'
+import { ThumbsUp, ThumbsUpIcon } from 'lucide-react'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
@@ -19,11 +20,9 @@ export default function Like({post, isLiked}: {post: PostType, isLiked: any}) {
         })
     }
   return (
-    <button onClick={likeHandeler}  className={`flex items-center ${isLiked ? 'text-blue-600' : 'text-gray-500'}`}>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path>
-        </svg>
-        <span><span className='pe-2'>{post.likes.length}</span>Like</span>
+    <button onClick={likeHandeler}  className={`flex items-end leading-snug`}>
+        <span className='pe-1'>{post.likes.length}</span>
+        <ThumbsUpIcon  className={isLiked ? 'fill-blue-500 text-transparent' : 'text-muted-foreground'} />
     </button>
   )
 }

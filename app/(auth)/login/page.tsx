@@ -3,6 +3,7 @@ import { ErrorZod, LoginZodSchema } from '@/lib/zodSchema'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { toast } from 'react-hot-toast'
 import * as z from 'zod'
 type TypeLoginZodSchema = z.infer<typeof LoginZodSchema>
 
@@ -24,7 +25,6 @@ export default function SignIn() {
                 password: password,
                 redirect: false
             })
-    
             if (response?.error) {
                 setServerError(response.error);
             }
@@ -32,7 +32,7 @@ export default function SignIn() {
                 setServerError(null)
                 router.push('/')
                 router.refresh()
-            }        
+            }
         } catch (error) {
             setErrors(ErrorZod({error}) as TypeLoginZodSchema)
         }

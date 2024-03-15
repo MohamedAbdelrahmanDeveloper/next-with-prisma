@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import * as z from "zod";
+import toast from 'react-hot-toast';
 type TypeUserZodSchema = z.infer<typeof UserZodSchema>;
 
 export default function SignUp() {
@@ -28,15 +29,18 @@ export default function SignUp() {
             password,
         }).then(e => {
             if (e.status === 209) {
-                console.log(e.data.message);
+              toast.error(e.data.message)
             }
             if (e.status === 201) {
-                router.push('/sign-in')
+              toast.success(e.data.message)
+              router.push('/login')
             }
         }).catch(error => {
-            console.log(error.response.data.error.issues[0]);
-            
-        });    
+          if (error?.response?.data) {
+            return toast.error(error.response.data.error.issues[0]);
+          }
+          toast.error(error)
+        });
     } catch (error) {
         setErrors(ErrorZod({error}) as TypeUserZodSchema)
     }

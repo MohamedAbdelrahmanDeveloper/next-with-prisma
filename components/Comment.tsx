@@ -2,20 +2,29 @@ import { moment_timeAge } from '@/lib/moment'
 import { CommentType } from '@/types'
 import Link from 'next/link'
 import React from 'react'
+import { Avatar, AvatarFallback } from './ui/avatar'
+import { Card, CardContent } from './ui/card'
+import { Button } from './ui/button'
+import { DeleteIcon } from 'lucide-react'
 
 export default async function Comment({comment, session}: {comment: CommentType, session: any}) {
   return (
-    <div className="w-full flex ">
-      <div className='w-7 border-t-2'></div>
-      <div className="flex items rounded-lg rounded-tl-none border w-full bg-white px-3 py-2">
-          <img className="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/150" alt="Profile Picture" />
-          <div className="text-sm">
-              <Link href={`/user/${comment.user.id}`} className='text-gray-900 leading-none font-semibold'>{comment.user.name}</Link>
-              <p className="text-gray-900">{comment.text}</p>
-              <p className="text-gray-600">{moment_timeAge(comment.createdAt)}</p>
-              {comment.user.id === session.user.id && <p className='text-red-500'>Delete</p>}
+    <div className="flex items-start gap-x-2">
+      <Link href={`/user/${comment.user.id}`}>
+        <Avatar>
+          <AvatarFallback>{comment.user.name.slice(0, 2)}</AvatarFallback>
+        </Avatar>
+      </Link>
+      <Card className="w-full">
+        <CardContent className='p-3 flex justify-between'>
+          <div>
+            <p className="text-gray-900">{comment.text}</p>
+            <p className="text-gray-600 text-sm ">{moment_timeAge(comment.createdAt)}</p>
           </div>
-      </div>
+          {comment.user.id === session.user.id && <Button size={'icon'} variant={'ghost'} className='text-red-500 p-2'><DeleteIcon size={25}/></Button>}
+        </CardContent>
+      </Card>
+      
     </div>
   )
 }

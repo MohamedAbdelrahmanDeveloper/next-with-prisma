@@ -4,8 +4,11 @@ import axios from 'axios'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { Avatar, AvatarFallback } from './ui/avatar'
+import { Textarea } from './ui/textarea'
+import { Button } from './ui/button'
 
-export default function AddComment({post}: {post: PostType}) {
+export default function AddComment({post, session}: {post: PostType, session: any}) {
     const [text, setText] = useState<string>()
     const router = useRouter()
 
@@ -24,10 +27,14 @@ export default function AddComment({post}: {post: PostType}) {
             }).catch(err => console.log(err))
         })
     }
+    
   return (
-    <form onSubmit={AddComment} className="flex items-center mt-4">
-        <img className="w-8 h-8 rounded-full mr-2" src="https://via.placeholder.com/150" alt="Profile Picture" />
-        <input type="text" className="w-full border border-gray-300 rounded-md py-2 px-4" onChange={e => setText(e.target.value)} placeholder="Add a comment..."/>
+    <form onSubmit={AddComment} className="flex items-start my-4 mx-2 space-x-2">
+        <Avatar>
+            <AvatarFallback>{session.user.name.slice(0, 2)}</AvatarFallback>
+        </Avatar>
+        <Textarea onChange={e => setText(e.target.value)} placeholder='Add a comment...'/>
+        <Button>send</Button>
     </form>
   )
 }

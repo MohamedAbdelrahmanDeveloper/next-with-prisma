@@ -20,7 +20,7 @@ export default async function PostsOfUser() {
         <div className='max-w-5xl mx-auto'>
             <AddPostPage />
             <div className='text-6xl'>Posts</div>
-            <div className='flex flex-col space-y-5'>
+            <div className='flex flex-col space-y-5 max-w-2xl'>
               {
                 posts.data.posts && posts.data.posts.map((post:PostType) => <Post key={post.id} post={post}/>)
               }

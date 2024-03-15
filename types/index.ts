@@ -1,3 +1,5 @@
+import { LucideIcon } from "lucide-react";
+
 export interface PropsMethodParamsType {
   params: { id: string };
 }
@@ -39,4 +41,12 @@ export interface UserType extends DateAtType{
 export interface Like extends DateAtType{
   id: string,
   user: UserType
+}
+
+
+export interface NavLinks {
+  text: string,
+  href: string,
+  icon?: LucideIcon,
+  visible?: "user"|"not-user"
 }
