@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import NavBarApp from "@/components/navigation/navbar";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import MobileNav from "@/components/navigation/MobileNav";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create Next App",

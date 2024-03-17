@@ -6,6 +6,7 @@ import { compare } from "bcrypt";
 import { signJwtAccessToken } from "./jwt";
 import axios from "axios";
 import { urlServer } from "./axios";
+import { CustomError } from "./CustomError";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -26,7 +27,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Please enter an email and password");
+          throw new CustomError("Please enter an email and password", 400);
         }
         try {
           const res = await axios.post(`${urlServer}/api/auth/login`, {
@@ -37,15 +38,13 @@ export const authOptions: NextAuthOptions = {
           if (res.data.user) {
             return res?.data?.user
           }
-
-          throw new Error(res.data.message)
         } catch (error) {
           // @ts-ignore
           if (error?.response) {
             // @ts-ignore
-            throw new Error(`${error.response.data.message}`)
+            throw new CustomError(`${error.response.data.message}`, error.response.status)
           }
-          throw new Error(`${error}`)
+          throw new CustomError(`${error}`, 500)
         }
       },
     }),

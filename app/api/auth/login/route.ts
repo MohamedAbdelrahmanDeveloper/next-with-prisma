@@ -37,6 +37,6 @@ export async function POST(req:NextRequest) {
         // const {password: newPassword, ...restUser} = newUser
         return NextResponse.json({user},{status: 200})
     } catch (error) {
-        return NextResponse.json({user: null, message: error},{status: 500})
+        return NextResponse.json({message: error},{status: 500})
     }
 }
