@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("relative text-muted-foreground overflow-x-hidden scroll-smooth selection:bg-primary selection:text-white")}>
+      <body className={cn("relative bg-blue-50 text-muted-foreground overflow-x-hidden scroll-smooth selection:bg-primary selection:text-white")}>
         <Toaster />
         <div className="h-20 pb-2">
           <ThemeProvider  attribute="class"

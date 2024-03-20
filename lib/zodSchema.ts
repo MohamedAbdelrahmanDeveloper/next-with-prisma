@@ -28,3 +28,9 @@ export const UserUpdateZodSchema = z.object({
     name: z.string().min(1, 'Name is required'),
     username : z.string().min(1, 'Username is required').max(15).toLowerCase(),
 })
+
+export const postZodSchema = z.object({
+    description : z.string({
+        required_error: 'post is required'
+    }).min(4).max(400),
+})

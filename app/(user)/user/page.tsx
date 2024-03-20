@@ -1,8 +1,8 @@
-import Post from '@/components/Post'
+import AddPostPage from '@/components/AddPost'
+import PostsProfile from '@/components/user/PostsProfile'
+import ProfileComponent from '@/components/user/Profile'
 import { authOptions } from '@/lib/auth'
 import { urlServer } from '@/lib/axios'
-import { moment_timeAge } from '@/lib/moment'
-import { PostType, UserType } from '@/types'
 import axios from 'axios'
 import { getServerSession } from 'next-auth'
 
@@ -11,26 +11,15 @@ export default async function Profile() {
     try {
       const res = await axios.get(`${urlServer}/api/user`, {
         headers: {
-          'Authorization': session?.token
+          'Authorization': session?.user.accessToken
         }
       })
-      return (
-        <div className='max-w-5xl mx-auto'>
-            <div className='text-6xl'>profile</div>
-            <div className='flex flex-col mt-4'>
-              {res?.data?.user?.name}
-              <br />
-              {res?.data?.user?.username}
-              <br />
-              {res?.data?.user?.email}
-              <br />
-              {res?.data?.user?.isAdmin}
-              <br />
-              {moment_timeAge(res?.data?.user?.createdAt)}
-              <br />
-              {moment_timeAge(res?.data?.user?.updatedAt)}
-            </div>
-        </div>
+      return res.data.user && (
+        <main className='space-y-3'>
+          <ProfileComponent user={res.data.user}/>
+          <AddPostPage />
+          <PostsProfile userId={res.data.user.id} session={session}/>
+        </main>
       )
   } catch (error) { 
     console.log(error);

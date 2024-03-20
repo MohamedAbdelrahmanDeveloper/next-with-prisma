@@ -34,8 +34,16 @@ export interface UserType extends DateAtType{
     id: string,
     name: string,
     username: string,
-    email: string,
     isAdmin: boolean,
+    email?: string
+}
+
+export interface UserForProfileType extends DateAtType{
+    id: string,
+    name: string,
+    username: string,
+    isAdmin: boolean,
+    email: string
 }
 
 export interface Like extends DateAtType{

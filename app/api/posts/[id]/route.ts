@@ -23,6 +23,9 @@ export async function GET(req: NextRequest, { params }: PropsMethodParamsType) {
         },
       },
       comments: {
+        orderBy: {
+          createdAt: "desc",
+        },
         select : {
           id: true,
           text: true,

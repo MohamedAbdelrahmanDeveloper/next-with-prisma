@@ -15,12 +15,6 @@ export const navLinks:NavLinks[] = [
         visible: 'user'
     },
     {
-        text: 'Posts',
-        href: '/posts',
-        icon: Shapes,
-        visible: 'user'
-    },
-    {
         text: 'Login',
         href: '/login',
         icon: LogIn,

@@ -7,6 +7,7 @@ export interface TypeUserData {
   email: string,
   createdAt: string,
   updatedAt: string,
+  accessToken: string,
   name: string,
 }
 declare module "next-auth" {

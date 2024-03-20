@@ -52,7 +52,7 @@ export default async function Post({post, details}: {post: PostType, details?: b
                 <MessageSquare />
               </Link>}
           </div>
-          <div>More</div>
+         {post.user.id === session?.user.id && <div>Delete</div>}
         </CardFooter>
       </Card>
   )

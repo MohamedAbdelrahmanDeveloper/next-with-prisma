@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { verifyJwt } from "@/lib/jwt";
+import { postZodSchema } from "@/lib/zodSchema";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -11,8 +12,11 @@ export async function GET(req: NextRequest) {
     const decoded = verifyJwt(accessToken)
     if (!decoded) {
         return NextResponse.json({message: "unauthorized"},{status: 401});
-    }    
+    }
     const posts = await db.post.findMany({
+        orderBy: {
+            createdAt: "desc",
+        },
         include: {
             user: {
                 select: {
@@ -22,6 +26,9 @@ export async function GET(req: NextRequest) {
                 },
             },
             comments: {
+                orderBy: {
+                    createdAt: "desc",
+                },
                 select : {
                 id: true,
                 text: true,
@@ -62,6 +69,11 @@ export async function POST(req:NextRequest) {
         return NextResponse.json({message: "unauthorized"},{status: 401});
     }
     const {description} = await req.json() as {description: string}
+
+    let validation = postZodSchema.safeParse({description})
+    if (!validation.success) {
+      return NextResponse.json({message: validation.error.errors[0].message},{status: 401});
+    }
     await db.post.create({
         data: {description,  userId: decoded.id},
         include: {

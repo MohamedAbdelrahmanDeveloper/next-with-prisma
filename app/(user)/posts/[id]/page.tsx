@@ -10,7 +10,7 @@ export default async function PostID({params}: {params: {id: string}}) {
     try {      
       const post = await axios.get(`${urlServer}/api/posts/${params.id}`, {
         headers: {
-          'Authorization': session?.token
+          'Authorization': session?.user.accessToken
         }
       })
       return (
