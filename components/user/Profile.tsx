@@ -5,7 +5,7 @@ import { UserType } from '@/types'
 export default function ProfileComponent({user}: {user: UserType}) {
   
   return (
-    <section className='max-w-5xl mx-auto bg-white'>
+    <section className='max-w-5xl mx-auto bg-background'>
         <div className='h-64 bg-black relative flex flex-col items-center justify-end'>
           <span className='absolute bottom-2 end-2 text-xs'>{moment_timeAge(user?.createdAt)}</span>
           <Avatar className='h-24 w-24 ring-4 ring-primary md:absolute md:bottom-2 start-2'>
