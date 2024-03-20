@@ -1,5 +1,5 @@
-import Post from '@/components/Post'
-import PostDetails from '@/components/PostDetails'
+import Post from '@/components/post/Post'
+import PostDetails from '@/components/post/PostDetails'
 import { authOptions } from '@/lib/auth'
 import { urlServer } from '@/lib/axios'
 import axios from 'axios'

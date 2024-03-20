@@ -12,7 +12,7 @@ export default function Like({post, isLiked}: {post: PostType, isLiked: any}) {
         getSession().then((tok) => {
             axios.post(`/api/posts/${post.id}/like`, {},{
                 headers: {
-                    Authorization: tok?.token
+                    Authorization: tok?.user.accessToken
                 }
             }).then(res=>{
                 router.refresh();

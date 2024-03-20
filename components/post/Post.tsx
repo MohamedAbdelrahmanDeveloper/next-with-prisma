@@ -5,9 +5,10 @@ import React from 'react'
 import Like from './Like'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
-import { Avatar, AvatarFallback } from './ui/avatar'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
+import { Avatar, AvatarFallback } from '../ui/avatar'
 import { MessageSquare } from 'lucide-react'
+import DeletePost from './Delete'
 
 export default async function Post({post, details}: {post: PostType, details?: boolean}) {
   const session = await getServerSession(authOptions)
@@ -52,7 +53,7 @@ export default async function Post({post, details}: {post: PostType, details?: b
                 <MessageSquare />
               </Link>}
           </div>
-         {post.user.id === session?.user.id && <div>Delete</div>}
+         {post.user.id === session?.user.id && <DeletePost postId={post.id} session={session}/>}
         </CardFooter>
       </Card>
   )

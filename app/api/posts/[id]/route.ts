@@ -104,7 +104,6 @@ export async function DELETE(req:NextRequest, { params }: PropsMethodParamsType)
   if (!decoded) {
       return NextResponse.json({message: "unauthorized"},{status: 401});
   }
-  
 
   const post = await db.post.findUnique({ where: { id: params.id } });
     if (!post) {
@@ -119,7 +118,7 @@ export async function DELETE(req:NextRequest, { params }: PropsMethodParamsType)
       id: params.id
     }
   })
-  return NextResponse.json({post: 'seccess deleted post'},{status: 201})
+  return NextResponse.json({message: 'seccess deleted post'},{status: 201})
 }
 
 

@@ -1,5 +1,5 @@
 import AddPostPage from '@/components/AddPost'
-import Post from '@/components/Post'
+import Post from '@/components/post/Post'
 import { authOptions } from '@/lib/auth'
 import { urlServer } from '@/lib/axios'
 import { PostType } from '@/types'

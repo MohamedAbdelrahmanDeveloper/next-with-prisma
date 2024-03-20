@@ -2,9 +2,9 @@ import { moment_timeAge } from '@/lib/moment'
 import { CommentType } from '@/types'
 import Link from 'next/link'
 import React from 'react'
-import { Avatar, AvatarFallback } from './ui/avatar'
-import { Card, CardContent } from './ui/card'
-import { Button } from './ui/button'
+import { Avatar, AvatarFallback } from '../ui/avatar'
+import { Card, CardContent } from '../ui/card'
+import { Button } from '../ui/button'
 import { DeleteIcon } from 'lucide-react'
 
 export default async function Comment({comment, session}: {comment: CommentType, session: any}) {

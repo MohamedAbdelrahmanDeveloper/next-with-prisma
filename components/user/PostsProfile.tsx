@@ -2,7 +2,7 @@ import { urlServer } from "@/lib/axios"
 import { PostType } from "@/types"
 import axios from "axios"
 import { Session } from "next-auth"
-import Post from "../Post"
+import Post from "../post/Post"
 
 export default async function PostsProfile({userId, session}: {userId: string, session: Session | null}) {
     const res = await axios.get(`${urlServer}/api/user/${userId}/posts`, {
@@ -15,7 +15,6 @@ export default async function PostsProfile({userId, session}: {userId: string, s
         {res.data.posts.map(post => (
             <Post key={post.id} post={post} />
         ))}
-        {userId}
     </div>
   )
 }
