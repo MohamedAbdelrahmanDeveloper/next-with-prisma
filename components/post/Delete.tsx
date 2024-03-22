@@ -5,7 +5,7 @@ import React from 'react'
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 
-export default function DeletePost({id, session, postOrComment}: {id: string, session: Session | null, postOrComment: 'post' | 'comment'}) {
+export default function DeleteButton({id, session, postOrComment}: {id: string, session: Session | null, postOrComment: 'post' | 'comment'}) {
   const router = useRouter()
   const url = postOrComment === 'post' ? `/api/posts/${id}` : `/api/comments/${id}`
   function removeItem() {

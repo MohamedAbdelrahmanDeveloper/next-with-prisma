@@ -8,7 +8,7 @@ import { authOptions } from '@/lib/auth'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { MessageSquare } from 'lucide-react'
-import DeletePost from './Delete'
+import DeleteButton from './Delete'
 
 export default async function Post({post, details}: {post: PostType, details?: boolean}) {
   const session = await getServerSession(authOptions)
@@ -53,7 +53,7 @@ export default async function Post({post, details}: {post: PostType, details?: b
                 <MessageSquare />
               </Link>}
           </div>
-         {post.user.id === session?.user.id && <DeletePost id={post.id} session={session} postOrComment='post'/>}
+         {post.user.id === session?.user.id && <DeleteButton id={post.id} session={session} postOrComment='post'/>}
         </CardFooter>
       </Card>
   )

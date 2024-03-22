@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { Card, CardContent } from '../ui/card'
-import DeletePost from './Delete'
+import DeleteButton from './Delete'
 
 export default async function Comment({comment, session, post}: {comment: CommentType, session: any, post: PostType}) {
   return (
@@ -20,7 +20,7 @@ export default async function Comment({comment, session, post}: {comment: Commen
             <p className="text-gray-900">{comment.text}</p>
             <p className="text-gray-600 text-sm ">{moment_timeAge(comment.createdAt)}</p>
           </div>
-          {comment.user.id === session?.user.id || post.user.id === session?.user.id && <DeletePost id={comment.id} session={session} postOrComment='comment'/>}
+          {(comment.user.id === session?.user.id || post.user.id === session?.user.id) && <DeleteButton id={comment.id} session={session} postOrComment='comment'/>}
         </CardContent>
       </Card>
       
