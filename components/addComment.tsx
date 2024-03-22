@@ -19,7 +19,7 @@ export default function AddComment({post, session}: {post: PostType, session: an
                 text
             }, {
                 headers: {
-                    Authorization: tok?.token
+                    Authorization: tok?.user.accessToken
                 }
             }).then(res => {
                 setText('')

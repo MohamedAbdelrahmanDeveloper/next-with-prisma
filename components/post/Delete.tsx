@@ -1,15 +1,15 @@
 'use client'
-import { urlServer } from '@/lib/axios';
 import axios from 'axios';
 import { Session } from 'next-auth'
 import React from 'react'
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 
-export default function DeletePost({postId, session}: {postId: string, session: Session | null}) {
+export default function DeletePost({id, session, postOrComment}: {id: string, session: Session | null, postOrComment: 'post' | 'comment'}) {
   const router = useRouter()
-  function removePost() {
-    axios.delete(`/api/posts/${postId}`,{
+  const url = postOrComment === 'post' ? `/api/posts/${id}` : `/api/comments/${id}`
+  function removeItem() {
+    axios.delete(url ,{
       headers: {
         Authorization: session?.user.accessToken
       }
@@ -18,6 +18,6 @@ export default function DeletePost({postId, session}: {postId: string, session: 
     })
   }
   return (
-    <Button variant={'destructive'} onClick={removePost}>Delete</Button>
+    <Button variant={'destructive'} onClick={removeItem}>Delete</Button>
   )
 }

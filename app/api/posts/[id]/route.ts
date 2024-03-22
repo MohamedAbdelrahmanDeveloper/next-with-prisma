@@ -112,6 +112,18 @@ export async function DELETE(req:NextRequest, { params }: PropsMethodParamsType)
     if (post.userId != decoded.id) {
       return NextResponse.json({ message: "This is not your post" }, { status: 404 });
     }
+    
+    await db.comment.deleteMany({
+      where : {
+        postId: params.id
+      }
+    })
+
+    await db.like.deleteMany({
+      where : {
+        postId: params.id
+      }
+    })
 
   await db.post.delete({
     where : {

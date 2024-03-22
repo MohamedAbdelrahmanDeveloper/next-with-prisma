@@ -66,8 +66,14 @@ export async function DELETE(
     if (!comment) {
       return NextResponse.json({ message: "Not found comment" }, { status: 404 });
     }
-    if (comment.userId != decoded.id) {
-      return NextResponse.json({ message: "This is not your comment" }, { status: 404 });
+
+    const post = await db.post.findUnique({ where: { id: comment.postId } });
+    if (!post) {
+      return NextResponse.json({ message: "Not found post" }, { status: 404 });
+    }
+
+    if (post.userId != decoded.id || comment.userId != decoded.id) {
+      return NextResponse.json({ message: "This is not your comment, or this is not your post" }, { status: 404 });
     }
   
     await db.comment.deleteMany({

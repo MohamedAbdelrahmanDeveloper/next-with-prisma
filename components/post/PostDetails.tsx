@@ -18,7 +18,7 @@ export default async function PostDetails({post}: {post: PostType}) {
         <div className='flex flex-col space-y-2'>
           {
             post.comments.map(comment => (
-              <Comment session={session} key={comment.id} comment={comment} />
+              <Comment session={session} key={comment.id} comment={comment} post={post}/>
             ))
           }
         </div>

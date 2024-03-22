@@ -53,7 +53,7 @@ export default async function Post({post, details}: {post: PostType, details?: b
                 <MessageSquare />
               </Link>}
           </div>
-         {post.user.id === session?.user.id && <DeletePost postId={post.id} session={session}/>}
+         {post.user.id === session?.user.id && <DeletePost id={post.id} session={session} postOrComment='post'/>}
         </CardFooter>
       </Card>
   )
