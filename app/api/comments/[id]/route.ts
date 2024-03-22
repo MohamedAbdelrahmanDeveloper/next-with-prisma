@@ -72,15 +72,24 @@ export async function DELETE(
       return NextResponse.json({ message: "Not found post" }, { status: 404 });
     }
 
-    if (post.userId != decoded.id || comment.userId != decoded.id) {
-      return NextResponse.json({ message: "This is not your comment, or this is not your post" }, { status: 404 });
+    if (post.userId === decoded.id) {
+      await db.comment.deleteMany({
+        where: {
+          id: params.id,
+        },
+      });
+      return NextResponse.json({ like: "comment is deleted" }, { status: 200 });
     }
-  
-    await db.comment.deleteMany({
-      where: {
-        id: params.id,
-      },
-    });
-    return NextResponse.json({ like: "comment is deleted" }, { status: 200 });
+
+    if (comment.userId === decoded.id) {
+      await db.comment.deleteMany({
+        where: {
+          id: params.id,
+        },
+      });
+      return NextResponse.json({ like: "comment is deleted" }, { status: 200 });
+    }
+    
+    return NextResponse.json({ message: "This is not your comment, or this is not your post" }, { status: 404 });
   }
   
