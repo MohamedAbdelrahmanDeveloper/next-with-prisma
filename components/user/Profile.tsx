@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { UpdateProfile } from './UpdateProfile'
 import { Session } from 'next-auth'
 
-export default function ProfileComponent({user, session}: {user: UserType, session: Session}) {
+export default function ProfileComponent({user, session}: {user: UserType, session: Session | null}) {
   return (
     <section className='max-w-5xl mx-auto bg-background'>
         <div className='h-64 bg-black relative flex flex-col items-center justify-end'>
