@@ -5,6 +5,7 @@ import NavBarApp from "@/components/navigation/navbar";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import MobileNav from "@/components/navigation/MobileNav";
 import { Toaster } from "@/components/ui/toaster";
+import { headers } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,13 +17,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+  return(
     <html lang="en">
       <body className={cn("relative bg-blue-50 dark:bg-black text-muted-foreground overflow-x-hidden scroll-smooth selection:bg-primary selection:text-white")}>
         <Toaster />
         <div className="h-20 pb-2">
           <ThemeProvider  attribute="class"
-                defaultTheme="system"
+                defaultTheme="light"
                 enableSystem
                 disableTransitionOnChange>
               <NavBarApp />

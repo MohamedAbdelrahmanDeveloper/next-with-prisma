@@ -12,12 +12,9 @@ export default function ProfileComponent({user}: {user: UserType}) {
               <AvatarFallback>dn</AvatarFallback>
           </Avatar>
           <div className='md:absolute bottom-2 start-32 flex flex-col items-center'>
-              <h1 className='text-xl font-semibold'>{user?.name}</h1>
-              <h2 className='text-sm'>@{user?.username}</h2>
+              <h1 className='text-xl font-semibold text-primary-foreground'>{user?.name}</h1>
+              <h2 className='text-sm text-primary-foreground/70'>@{user?.username}</h2>
           </div>
-        </div>
-        <div className='flex justify-end pe-2'>
-            <span>{user?.email}</span>
         </div>
     </section>
   )

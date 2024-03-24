@@ -20,7 +20,7 @@ const LinkComponent = ({link}: {link: NavLinks}) => {
 export default async  function MobileNav() {
     const session = await getServerSession()
   return (
-    <div className='container mx-auto fixed md:hidden bottom-0 inset-x-0 bg-white border-t w-full py-3'>
+    <div className='container mx-auto fixed md:hidden bottom-0 inset-x-0 bg-white border-t w-full py-3 z-10'>
         <nav className='flex items-center justify-around gap-x-4 text-black'>
             {navLinks.map((link, index) => {
                 const {visible} = link

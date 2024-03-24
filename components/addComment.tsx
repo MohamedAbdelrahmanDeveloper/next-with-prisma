@@ -29,7 +29,7 @@ export default function AddComment({post, session}: {post: PostType, session: an
     }
     
   return (
-    <form onSubmit={AddComment} className="flex items-start my-4 mx-2 space-x-2">
+    <form onSubmit={AddComment} className="flex items-start my-4 mx-2 gap-x-2">
         <Avatar>
             <AvatarFallback>{session.user.name.slice(0, 2)}</AvatarFallback>
         </Avatar>

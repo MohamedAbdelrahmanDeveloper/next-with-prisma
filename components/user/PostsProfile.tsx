@@ -10,11 +10,14 @@ export default async function PostsProfile({userId, session}: {userId: string, s
             Authorization: session?.user.accessToken
         }
     }) as {data: {posts: PostType[]}}
-  return (
-    <div className="flex flex-col space-y-3">
-        {res.data.posts.map(post => (
-            <Post key={post.id} post={post} />
-        ))}
-    </div>
-  )
+    return (
+        <div className="flex flex-col space-y-3">
+            {res.data.posts.length > 0 ? res.data.posts.map(post => (
+                <Post key={post.id} post={post} />
+            )): 
+            (
+                <div className="py-16 px-4 text-lg">No posts yet !</div>
+            )}
+        </div>
+    )
 }

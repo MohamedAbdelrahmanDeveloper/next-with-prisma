@@ -4,6 +4,7 @@ import { Session } from 'next-auth'
 import React from 'react'
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
+import { Trash } from 'lucide-react';
 
 export default function DeleteButton({id, session, postOrComment}: {id: string, session: Session | null, postOrComment: 'post' | 'comment'}) {
   const router = useRouter()
@@ -18,6 +19,6 @@ export default function DeleteButton({id, session, postOrComment}: {id: string, 
     })
   }
   return (
-    <Button variant={'destructive'} onClick={removeItem}>Delete</Button>
+    <Trash className='text-destructive cursor-pointer' onClick={removeItem} />
   )
 }

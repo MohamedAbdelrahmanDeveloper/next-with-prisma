@@ -18,12 +18,8 @@ export async function GET(req: NextRequest) {
             name:true,
             username:true,
             isAdmin: true,
-            email:true,
         }
     })
-    if (!users) {
-        return NextResponse.json({message: "Not found user"},{status: 404});
-    }
-    // const {password, ...newUser} = user
+    
     return NextResponse.json({users: users},{status: 200});
 }

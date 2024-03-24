@@ -18,7 +18,7 @@ export default async function Post({post, details}: {post: PostType, details?: b
   return (
       <Card key={post.id}>
         <CardHeader>
-          <Link href={`/user/${post.user.id}`} className='flex items-center space-x-2'>
+          <Link href={`/user/${post.user.id}`} className='flex items-center gap-x-2'>
             <Avatar>
               <AvatarFallback>{post.user.name.slice(0, 2)}</AvatarFallback>
             </Avatar>
@@ -41,7 +41,7 @@ export default async function Post({post, details}: {post: PostType, details?: b
           }
         </CardContent>
         <CardFooter className='flex justify-between'>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center gap-x-2'>
             <Like post={post} isLiked={isLiked}/>
             {details ?
               <div className="flex items-center">

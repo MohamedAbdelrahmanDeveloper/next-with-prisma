@@ -40,7 +40,7 @@ export default function Component() {
       <Card className="max-w-md mx-auto mt-10">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-center">Welcome Back!</CardTitle>
-          <CardDescription className="text-center text-sm">Please enter your credentials to log in.</CardDescription>
+          <CardDescription className="text-center text-sm">Please log in.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
             <Input label="Email"

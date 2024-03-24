@@ -5,12 +5,10 @@ import Link from 'next/link'
 import { ModeToggle } from './modeToggle'
 import { getServerSession } from 'next-auth'
 import Logout from '../Logout'
-import Image from 'next/image'
-import { Button } from '../ui/button'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 
 export default async function NavBarApp() {
-    const session = await getServerSession()    
+    const session = await getServerSession();
   return (
     <header className='fixed top-0 w-full bg-background/50 backdrop-blur-md z-20'>
         <div className='container h-full py-4 mx-aut flex items-center justify-between'>
@@ -28,7 +26,7 @@ export default async function NavBarApp() {
                     }
                 })}
             </nav>
-            <div className='flex space-x-2'>
+            <div className='flex gap-x-2'>
                 {session?.user && <>
                     <Avatar >
                         <AvatarFallback>{session?.user.name.slice(0, 2)}</AvatarFallback>

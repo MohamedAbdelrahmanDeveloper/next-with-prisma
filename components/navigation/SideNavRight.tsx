@@ -1,34 +1,32 @@
-import React from 'react'
-import RecommentFriends from '../user/RecommentFriends'
-import { db } from '@/lib/db'
-import { UserType } from '@/types'
-import axios from 'axios'
-import { urlServer } from '@/lib/axios'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import React from "react";
+import { Earth, Facebook, Github, Linkedin } from "lucide-react";
+import Link from "next/link";
 
-export default async function SideNavRight() {
-    const session = await getServerSession(authOptions)  
-    try {
-        const users: UserType[] = await axios.get(`${urlServer}/api/users`, {
-            headers: {
-                'Authorization': session?.user.accessToken
-            }
-        })
-        console.log(users);
-        
-        return (
-            <div className="hidden md:block col-span-2 h-64 sticky top-0 p-3 space-y-2">
-                {
-                    users.map(user=> (
-                        <RecommentFriends key={user.id} user={user}/>
-                    ))
-                }
-            </div>
-        )
-    } catch (error) {
-        console.log(error);
-        
-        return <div>Error</div>
-    }
+export default function SideNavRight() {
+  return (
+    <div className="hidden md:flex justify-center items-center col-span-2 h-24 sticky top-0">
+      <ul className="h-full flex items-center gap-x-4">
+        <li className="hover:text-primary">
+          <Link  target="_blank" href="https://www.faecebook.com/m7md0a">
+            <Facebook />
+          </Link>
+        </li>
+        <li className="hover:text-primary">
+          <Link  target="_blank" href="https://www.github.com/m7md0a">
+            <Github />
+          </Link>
+        </li>
+        <li className="hover:text-primary">
+          <Link  target="_blank" href="https://www.linkedin.com/in/m7md0a">
+            <Linkedin />
+          </Link>
+        </li>
+        <li className="hover:text-primary">
+          <Link  target="_blank" href="https://m-abdelrahman.vercel.app">
+            <Earth />
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
 }
