@@ -21,7 +21,7 @@ export default async function SideNavRight() {
             <div className="hidden md:block col-span-2 h-64 sticky top-0 p-3 space-y-2">
                 {
                     users.map(user=> (
-                        <RecommentFriends user={user}/>
+                        <RecommentFriends key={user.id} user={user}/>
                     ))
                 }
             </div>
