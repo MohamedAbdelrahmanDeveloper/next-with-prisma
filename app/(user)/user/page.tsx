@@ -16,7 +16,7 @@ export default async function Profile() {
       })
       return res.data.user && (
         <main className='space-y-3'>
-          <ProfileComponent user={res.data.user}/>
+          <ProfileComponent user={res.data.user} session={session}/>
           <AddPostPage />
           <PostsProfile userId={res.data.user.id} session={session}/>
         </main>

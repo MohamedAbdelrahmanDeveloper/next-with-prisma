@@ -9,15 +9,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { MessageSquare } from 'lucide-react'
 import DeleteButton from './Delete'
+import { arabicRegex } from '@/lib/arabic'
+import { UpdatePost } from './UpdatePost'
 
 export default async function Post({post, details}: {post: PostType, details?: boolean}) {
   const session = await getServerSession(authOptions)
   const isLiked = post.likes.find(like => {
       return like.user.id === session?.user.id
   })
+
   return (
-      <Card key={post.id}>
-        <CardHeader>
+      <Card key={post.id} >
+        <CardHeader className='relative'>
           <Link href={`/user/${post.user.id}`} className='flex items-center gap-x-2'>
             <Avatar>
               <AvatarFallback>{post.user.name.slice(0, 2)}</AvatarFallback>
@@ -27,8 +30,11 @@ export default async function Post({post, details}: {post: PostType, details?: b
               <CardDescription>{moment_timeAge(post.createdAt)}</CardDescription>
             </div>
           </Link>
+          {post.user.id === session?.user.id && <div className='absolute top-6 end-4'>
+            <UpdatePost />
+          </div>}
         </CardHeader>
-        <CardContent>
+        <CardContent dir={arabicRegex.test(post.description) ? 'rtl' : 'ltr'}>
           {details ?
             <p className="text-gray-700 text-base">
               {post.description}

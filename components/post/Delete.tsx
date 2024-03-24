@@ -19,6 +19,6 @@ export default function DeleteButton({id, session, postOrComment}: {id: string, 
     })
   }
   return (
-    <Trash className='text-destructive cursor-pointer' onClick={removeItem} />
+    <Trash className='text-destructive cursor-pointer ms-2' onClick={removeItem} />
   )
 }

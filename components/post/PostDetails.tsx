@@ -1,12 +1,9 @@
-import { moment_timeAge } from '@/lib/moment'
 import { PostType } from '@/types'
-import Link from 'next/link'
 import React from 'react'
-import Like from './Like'
 import AddComment from '../addComment'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import Comment from './Comment'
+import Comment from '../comment/Comment'
 import Post from './Post'
 
 export default async function PostDetails({post}: {post: PostType}) {
