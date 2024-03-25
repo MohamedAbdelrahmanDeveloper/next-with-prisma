@@ -20,7 +20,7 @@ export default async function UserDataById({params}: {params: {id: string}}) {
         })        
         return (
             <main className='space-y-3'>
-                <ProfileComponent user={res.data.user}/>
+                <ProfileComponent user={res?.data?.user} session={session}/>
                 <PostsProfile userId={res.data.user.id} session={session}/>
             </main>
         )
