@@ -1,18 +1,22 @@
-import { Button } from "@/components/ui/button"
+'use client'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Edit } from "lucide-react"
+import SessionProviderComponent from "../session/Provider"
+import FormUpdateProfile from "./FormUpdateProfile"
+import { useState } from "react"
 
-export function UpdateProfile() {
+
+export default function UpdateProfile() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Edit className="cursor-pointer"/>
       </DialogTrigger>
@@ -20,20 +24,12 @@ export function UpdateProfile() {
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Make changes to your profile here. Click save when youre done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            heind
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            jincinc
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        <SessionProviderComponent>
+          <FormUpdateProfile setOpenDialog={setOpen}/>
+        </SessionProviderComponent>
       </DialogContent>
     </Dialog>
   )

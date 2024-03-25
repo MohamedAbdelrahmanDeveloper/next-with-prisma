@@ -51,7 +51,7 @@ export async function PUT(req: NextRequest) {
             }
         })
         if (existingUserByUsername) {
-            return NextResponse.json({user: 'username is taken'},{status: 200});
+            return NextResponse.json({message: 'username is taken'},{status: 400});
         }
         await db.user.update({
             where: {

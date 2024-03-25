@@ -1,6 +1,6 @@
 import { PostType } from '@/types'
 import React from 'react'
-import AddComment from '../addComment'
+import AddComment from '../comment/addComment'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import Comment from '../comment/Comment'

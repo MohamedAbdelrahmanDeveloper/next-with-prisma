@@ -31,7 +31,7 @@ export default async function Post({post, details}: {post: PostType, details?: b
             </div>
           </Link>
           {post.user.id === session?.user.id && <div className='absolute top-6 end-4'>
-            <UpdatePost />
+            <UpdatePost postId={post.id} session={session}/>
           </div>}
         </CardHeader>
         <CardContent dir={arabicRegex.test(post.description) ? 'rtl' : 'ltr'}>

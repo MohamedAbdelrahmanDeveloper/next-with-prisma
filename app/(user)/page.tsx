@@ -1,4 +1,4 @@
-import AddPostPage from '@/components/AddPost'
+import AddPostPage from '@/components/post/AddPost'
 import Post from '@/components/post/Post'
 import { authOptions } from '@/lib/auth'
 import { urlServer } from '@/lib/axios'
@@ -16,7 +16,7 @@ export default async function PostsOfUser() {
       })
       return (
         <div className='max-w-5xl mx-auto space-y-4'>
-            <AddPostPage />
+            <AddPostPage session={session} />
             <div className='flex flex-col space-y-5'>
               {
                 posts.data.posts && posts.data.posts.map((post:PostType) => <Post key={post.id} post={post}/>)

@@ -19,10 +19,13 @@ export default async function Comment({comment, session, post}: {comment: Commen
       <Card className="w-full">
         <CardContent className='p-3 flex justify-between'>
           <div dir={arabicRegex.test(comment.text) ? 'rtl' : 'ltr'} className='w-full'>
-            <p className="text-gray-900">{comment.text}</p>
-            <p className="text-gray-600 text-sm ">{moment_timeAge(comment.createdAt)}</p>
+            <h3 className='font-medium text-sm'>{comment.user.name}</h3>
+            <div className='py-1'>
+              <p className="text-gray-900">{comment.text}</p>
+              <p className="text-gray-600 text-sm ">{moment_timeAge(comment.createdAt)}</p>
+            </div>
           </div>
-          {comment.user.id === session?.user.id && <UpdateComment />}
+          {comment.user.id === session?.user.id && <UpdateComment commentId={comment.id} session={session}/>}
           {(comment.user.id === session?.user.id || post.user.id === session?.user.id) && <DeleteButton id={comment.id} session={session} postOrComment='comment'/>}
         </CardContent>
       </Card>

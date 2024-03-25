@@ -25,8 +25,12 @@ export const LoginZodSchema = z.object({
 })
 
 export const UserUpdateZodSchema = z.object({
-    name: z.string().min(1, 'Name is required'),
-    username : z.string().min(1, 'Username is required').max(15).toLowerCase(),
+    name: z.string({
+        required_error: 'Name is required'
+    }).min(1, 'Name is required'),
+    username : z.string({
+        required_error: 'Username is required'
+    }).min(1, 'Username is required').max(15).toLowerCase(),
 })
 
 export const postZodSchema = z.object({

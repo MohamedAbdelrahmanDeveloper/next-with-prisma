@@ -24,7 +24,7 @@ export async function PUT(
       return NextResponse.json({ message: "Not found comment" }, { status: 404 });
     }
     if (comment.userId != decoded.id) {
-      return NextResponse.json({ message: "This is your comment" }, { status: 404 });
+      return NextResponse.json({ message: "This is not your comment" }, { status: 404 });
     }
 
     const { text } = await req.json();
@@ -78,7 +78,7 @@ export async function DELETE(
           id: params.id,
         },
       });
-      return NextResponse.json({ like: "comment is deleted" }, { status: 200 });
+      return NextResponse.json({ message: "comment is deleted" }, { status: 200 });
     }
 
     if (comment.userId === decoded.id) {
@@ -87,7 +87,7 @@ export async function DELETE(
           id: params.id,
         },
       });
-      return NextResponse.json({ like: "comment is deleted" }, { status: 200 });
+      return NextResponse.json({ message: "comment is deleted" }, { status: 200 });
     }
     
     return NextResponse.json({ message: "This is not your comment, or this is not your post" }, { status: 404 });

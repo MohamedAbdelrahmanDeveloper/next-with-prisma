@@ -1,4 +1,4 @@
-import AddPostPage from '@/components/AddPost'
+import AddPostPage from '@/components/post/AddPost'
 import PostsProfile from '@/components/user/PostsProfile'
 import ProfileComponent from '@/components/user/Profile'
 import { authOptions } from '@/lib/auth'
@@ -17,7 +17,7 @@ export default async function Profile() {
       return res.data.user && (
         <main className='space-y-3'>
           <ProfileComponent user={res.data.user} session={session}/>
-          <AddPostPage />
+          <AddPostPage session={session}/>
           <PostsProfile userId={res.data.user.id} session={session}/>
         </main>
       )

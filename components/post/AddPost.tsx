@@ -1,19 +1,17 @@
 "use client";
 import axios from "axios";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { Card, CardContent } from "./ui/card";
-import { Avatar, AvatarFallback } from "./ui/avatar";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import React, { useState } from "react";
+import { Card, CardContent } from "../ui/card";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
 import { Session } from "next-auth";
-import { toast } from "./ui/use-toast";
+import { toast } from "../ui/use-toast";
 import { postZodSchema } from "@/lib/zodSchema";
 
-export default function AddPostPage() {
+export default function AddPostPage({session}:{session: Session|null}) {
   const [description, setDescription] = useState<string>();
-  const [session, setSession] = useState<any | null>();
   const router = useRouter();
 
   const AddPost = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,7 +20,6 @@ export default function AddPostPage() {
     if (!validation.success) {
       return toast({description: validation.error.errors[0].message, variant: 'destructive'});
     }
-    getSession().then((tok) => {
       axios
         .post(
           "/api/posts",
@@ -31,7 +28,7 @@ export default function AddPostPage() {
           },
           {
             headers: {
-              Authorization: tok?.user.accessToken,
+              Authorization: session?.user.accessToken,
             },
           }
         )
@@ -45,14 +42,8 @@ export default function AddPostPage() {
             toast({description: err.response.data.message, variant: 'destructive'});
           }
         });
-    });
   };
 
-  useEffect(() => {
-    getSession().then((ses) => {
-      setSession(ses)
-    })
-  }, [])
   return (
     <Card >
       <CardContent className="flex pt-6 gap-x-4">
