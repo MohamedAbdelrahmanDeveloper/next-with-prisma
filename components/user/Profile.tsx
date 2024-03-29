@@ -9,7 +9,7 @@ export default function ProfileComponent({user, session}: {user: UserType, sessi
   return (
     <section className='max-w-5xl mx-auto bg-background'>
         <div className='h-64 bg-black relative flex flex-col items-center justify-end'>
-          <Image className="w-full h-full dark:opacity-70" src='/images/login.avif' width={250} height={300} alt="profile image"/>
+          <Image className="w-full h-full dark:opacity-70" src='/images/background.webp' width={250} height={300} alt="profile image"/>
           {user.id === session?.user.id && <span  className='absolute top-2 end-2 text-xs text-white'>
             <UpdateProfile />
           </span>}
